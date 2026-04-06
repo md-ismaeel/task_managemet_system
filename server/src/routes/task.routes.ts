@@ -14,7 +14,6 @@ const router = Router();
 // All task routes are protected
 router.use(authenticate);
 
-// GET /tasks      — list with pagination, filter, search
 // POST /tasks     — create new task
 router.route('/').get(getTasks).post(createTask);
 

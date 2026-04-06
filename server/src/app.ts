@@ -8,7 +8,7 @@ import taskRoutes from './routes/task.routes';
 
 const app = express();
 
-// ─── Security Middleware ──────────────────────────────────────────────────
+// Security Middleware
 app.use(helmet());
 app.use(
   cors({
@@ -19,16 +19,16 @@ app.use(
 
 console.log("client url");
 
-// ─── Body Parsing ─────────────────────────────────────────────────────────
+// Body Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ─── Routes ───────────────────────────────────────────────────────────────
+// Routes 
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
 
-// ─── Health Check ─────────────────────────────────────────────────────────
+// Health Check 
 app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
@@ -36,13 +36,12 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
-// ─── 404 Handler ──────────────────────────────────────────────────────────
+// 404 Handler 
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
 
-// ─── Global Error Handler ────────────────────────────────────────────────
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Global Error Handler 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error('Unhandled error:', err.stack);
   res.status(500).json({ success: false, message: 'Internal server error' });
