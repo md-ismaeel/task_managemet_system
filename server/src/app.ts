@@ -17,6 +17,8 @@ app.use(
   })
 );
 
+console.log("client url");
+
 // ─── Body Parsing ─────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
