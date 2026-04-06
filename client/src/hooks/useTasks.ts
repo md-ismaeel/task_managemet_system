@@ -72,13 +72,16 @@ export const useTasks = () => {
 
   const updateTask = useCallback(
     async (id: string, payload: Partial<Task>) => {
+      console.log('useTasks updateTask called:', id, payload);
       setSubmitting(true);
       try {
         const task = await tasksApi.update(id, payload);
+        console.log('updateTask API response:', task);
         setTasks((prev) => prev.map((t) => (t.id === id ? task : t)));
         toast.success('Task updated!');
         return task;
       } catch (err: unknown) {
+        console.error('updateTask error:', err);
         const msg =
           (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
           'Failed to update task';
@@ -93,9 +96,11 @@ export const useTasks = () => {
 
   const deleteTask = useCallback(
     async (id: string) => {
+      console.log('useTasks deleteTask called:', id);
       setSubmitting(true);
       try {
         await tasksApi.delete(id);
+        console.log('deleteTask API success');
         setTasks((prev) => prev.filter((t) => t.id !== id));
         if (pagination) {
           setPagination((prev) =>
@@ -103,7 +108,8 @@ export const useTasks = () => {
           );
         }
         toast.success('Task deleted');
-      } catch {
+      } catch (err) {
+        console.error('deleteTask error:', err);
         toast.error('Failed to delete task');
       } finally {
         setSubmitting(false);

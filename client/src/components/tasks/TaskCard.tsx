@@ -76,7 +76,7 @@ export default function TaskCard({ task, onEdit, onDelete, onToggle }: TaskCardP
         {/* Context menu */}
         <div className="relative shrink-0">
           <button
-            onClick={() => setMenuOpen((v) => !v)}
+            onClick={() => { console.log('Menu button clicked'); setMenuOpen((v) => !v); }}
             className="p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
             style={{ color: 'var(--text-muted)' }}
             onBlur={() => setTimeout(() => setMenuOpen(false), 150)}
@@ -90,14 +90,14 @@ export default function TaskCard({ task, onEdit, onDelete, onToggle }: TaskCardP
               style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)' }}
             >
               <button
-                onClick={() => { onEdit(task); setMenuOpen(false); }}
+                onClick={() => { console.log('Edit clicked', task.id); onEdit(task); setMenuOpen(false); }}
                 className="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 transition-colors hover:bg-white/5"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 <Pencil size={12} /> Edit
               </button>
               <button
-                onClick={() => { onToggle(task.id); setMenuOpen(false); }}
+                onClick={() => { console.log('Toggle clicked', task.id); onToggle(task.id); setMenuOpen(false); }}
                 className="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 transition-colors hover:bg-white/5"
                 style={{ color: 'var(--text-secondary)' }}
               >
@@ -105,7 +105,7 @@ export default function TaskCard({ task, onEdit, onDelete, onToggle }: TaskCardP
               </button>
               <div className="my-1" style={{ borderTop: '1px solid var(--border)' }} />
               <button
-                onClick={handleDelete}
+                onClick={() => { console.log('Delete clicked', task.id); handleDelete(); }}
                 className="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 transition-colors hover:bg-white/5"
                 style={{ color: confirmDelete ? 'var(--danger)' : 'var(--text-secondary)' }}
               >

@@ -55,6 +55,7 @@ export default function TaskFormModal({ task, onClose, onSubmit, submitting }: T
   }, [task, reset]);
 
   const handleFormSubmit = async (data: FormData) => {
+    console.log('Form submit - task:', task, 'data:', data);
     await onSubmit({
       title: data.title,
       description: data.description || undefined,
@@ -62,6 +63,7 @@ export default function TaskFormModal({ task, onClose, onSubmit, submitting }: T
       priority: data.priority,
       dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : null,
     });
+    console.log('Form submit complete');
     onClose();
   };
 
